@@ -1,21 +1,20 @@
 require './lib/bike'
 	
 	class DockingStation
-	  attr_reader :bike
+	  attr_reader :bikes
 	
 	  def initialize
-	    # @bikes = []
+	    @bikes = []
 	  end
 	
-	  def release_bike
-	    # bikes.last.delete
-	    Bike.new
-	    # remove bike from array bikes.delete_if ....
+	  def release_bike(bike = Bike.new)
+            raise ArgumentError, "Sorry no bikes left" if @bikes.empty?
+            return @bikes.bike
 	  end
 	
-	  def dock(bike)
-	    @bike = bike
-	  #   bikes.push(bike)
+	  def dock(bike = Bike.new)
+            raise ArgumentError, "Sorry docking station full" if @bikes.size == 1
+            @bikes << bike
 	  end
 	
 	  def bike
