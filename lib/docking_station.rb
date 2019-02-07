@@ -2,9 +2,11 @@ require './lib/bike'
 	
 	class DockingStation
 	  attr_reader :bikes
+	  # attr_reader :capacity
           DEFAULT_CAPACITY = 20
 	
-	  def initialize
+	  def initialize(capacity = DEFAULT_CAPACITY)
+            @capacity = capacity
 	    @bikes = []
 	  end
 	
@@ -20,12 +22,12 @@ require './lib/bike'
             if !full?
               @bikes << bike
             else
-              raise ArgumentError, "Sorry docking station full" if @bikes.size == CAPACITY
+              raise ArgumentError, "Sorry docking station full" if @bikes.size == DEFAULT_CAPACITY
             end
 	  end
     
           def full?
-            (@bikes.size >= CAPACITY)?true:false
+            (@bikes.size >= DEFAULT_CAPACITY)?true:false
           end
 	
           def empty?

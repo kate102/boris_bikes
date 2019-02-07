@@ -24,6 +24,9 @@ require 'docking_station'
             20.times{docking_station.dock}
 	    expect { docking_station.dock }.to raise_error(ArgumentError, "Sorry docking station full")
           end
-
+        
+          it 'Allows a docking station with a capaity' do
+            docking_station = DockingStation.new(50)
+          end
       
 	end
