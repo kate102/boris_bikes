@@ -1,5 +1,7 @@
 class Bike
-	  def working?
-	    true
-	  end
-	end
+  def initialize(status = true)  
+  end
+  def working?
+    true
+  end
+end
