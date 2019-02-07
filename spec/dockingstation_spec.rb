@@ -21,7 +21,7 @@ require 'docking_station'
 
           it 'will fail to dock if docking station full' do
 	    docking_station = DockingStation.new
-            docking_station.dock
+            20.times{docking_station.dock}
 	    expect { docking_station.dock }.to raise_error(ArgumentError, "Sorry docking station full")
           end
 
