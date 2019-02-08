@@ -2,12 +2,11 @@ require 'docking_station'
 	
 	
 describe DockingStation do
-let(:bike) { double :bike }
+let(:bike) { double :bike } #--------------------------------------------
 
   it { is_expected.to respond_to :release_bike }
 
   it 'docks something' do
-    # bike = double.new
     docking_station = DockingStation.new
     docking_station.dock(bike)
     expect(docking_station.bikes.include?(bike)).to eq true
@@ -35,7 +34,8 @@ let(:bike) { double :bike }
 # I'd like docking stations not to release broken bikes.
 
   it 'Will not release a non working bike' do
-   bike = double(:bike) # .new(false)
+    # Mocking a broken bike 
+    allow(bike).to receive(:working?).and_return(false)
     docking_station = DockingStation.new()
     docking_station.dock(bike)
     expect{docking_station.release_bike}.to raise_error(ArgumentError, "Sorry no working bikes")
@@ -47,7 +47,8 @@ it 'releases working bikes' do
   # a syntax error in our Bike class?
   # We need a way to remove this test's
   # dependency on Bike.
-  subject.dock double.new
+  subject.dock(bike)
+  allow(bike).to receive(:working?).and_return(true)
   bike = subject.release_bike
   expect(bike).to be_working
 end
@@ -70,9 +71,10 @@ end
 it 'releases working bikes' do
   # let's substitute our Bike.new
   # for a double
-  subject.dock double(:bike)
+  subject.dock(bike)
   # no error yet: and no problem when
   # we release the 'bike': we just
+  allow(bike).to receive(:working?).and_return(true)
   # get the double we made
   bike = subject.release_bike
   # a problem here: this double doesn't
