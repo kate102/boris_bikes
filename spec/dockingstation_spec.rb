@@ -2,11 +2,12 @@ require 'docking_station'
 	
 	
 describe DockingStation do
+let(:bike) { double :bike }
 
   it { is_expected.to respond_to :release_bike }
 
   it 'docks something' do
-    bike = Bike.new
+    # bike = double.new
     docking_station = DockingStation.new
     docking_station.dock(bike)
     expect(docking_station.bikes.include?(bike)).to eq true
@@ -34,10 +35,50 @@ describe DockingStation do
 # I'd like docking stations not to release broken bikes.
 
   it 'Will not release a non working bike' do
-   bike = Bike.new(false)
+   bike = double(:bike) # .new(false)
     docking_station = DockingStation.new()
     docking_station.dock(bike)
     expect{docking_station.release_bike}.to raise_error(ArgumentError, "Sorry no working bikes")
   end
      
+# in docking_station_spec.rb
+it 'releases working bikes' do
+  # what if this line fails because of
+  # a syntax error in our Bike class?
+  # We need a way to remove this test's
+  # dependency on Bike.
+  subject.dock double.new
+  bike = subject.release_bike
+  expect(bike).to be_working
+end
+
+# it 'releases working bikes' do
+  # let's substitute our Bike.new
+  # for a String.new
+  # subject.dock String.new("I'm not a bike!")
+  # no error yet: and no problem when
+  # we release the 'bike': we just
+  # get the string we made
+  # bike = subject.release_bike
+  # a problem here: strings don't
+  # know how to respond_to working?
+  # (we'll deal with that in the next
+  # challenge: mocking behaviour).
+  # expect(bike).to be_working
+# end
+
+it 'releases working bikes' do
+  # let's substitute our Bike.new
+  # for a double
+  subject.dock double(:bike)
+  # no error yet: and no problem when
+  # we release the 'bike': we just
+  # get the double we made
+  bike = subject.release_bike
+  # a problem here: this double doesn't
+  # know how to respond_to working?
+  # (we'll deal with that in the next
+  # challenge: mocking behaviour).
+  expect(bike).to be_working
+end
 end
