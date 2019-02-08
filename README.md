@@ -11,8 +11,19 @@ So that I can manage broken bikes and not disappoint users,
 I'd like docking stations to accept returning bikes (broken or not).
 
 require './lib/dockingstation'
-bike = Bike.new(status)
+bike2= Bike.new(status)
 
 dockingstation = Dockingstation.new
+bike2= Bike.new(status)
+
+# Test that broken bike isn't woking
 bike2 = Bike.new(false)
-dockingstation.dock
+bike2.working? => Fails
+
+# Dont release broken bikes
+dockingstation = Dockingstation.new
+dockingstation.dock(Bike.new(false))
+dockingstation.release_bike
+
+
+

@@ -29,11 +29,15 @@ describe DockingStation do
     docking_station = DockingStation.new(50)
   end
      
-#  it 'Will not release a non working bike' do
-#    bike = Bike.new(false)
-#    docking_station = DockingStation.new()
-#    docking_station.dock(bike)
-#    expect{docking_station.release_bike}.to raise_error(ArgumentError, "Sorry no working bikes")
-#  end
+# As a maintainer of the system,
+# So that I can manage broken bikes and not disappoint users,
+# I'd like docking stations not to release broken bikes.
+
+  it 'Will not release a non working bike' do
+   bike = Bike.new(false)
+    docking_station = DockingStation.new()
+    docking_station.dock(bike)
+    expect{docking_station.release_bike}.to raise_error(ArgumentError, "Sorry no working bikes")
+  end
      
 end
