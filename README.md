@@ -12,3 +12,7 @@ I'd like docking stations to accept returning bikes (broken or not).
 
 require './lib/dockingstation'
 bike = Bike.new(status)
+
+dockingstation = Dockingstation.new
+bike2 = Bike.new(false)
+dockingstation.dock
